@@ -23,16 +23,15 @@ constexpr int kRepeats = 7;
 constexpr int kLineProbeRepeats = 3 * kRepeats;
 
 // Detection
-constexpr double kSlowdown = 1.3;           // slowdown threshold w.r.t the base latency
+constexpr double kSlowdown = 1.15;          // slowdown threshold w.r.t the base latency
+constexpr size_t kSustainedPoints = 3;      // minimal number of points the plateau must hold
 constexpr size_t kBaselinePoints = 3;       // used to estimate the base latency
 constexpr double kPlateauTolerance = 0.1;   // used to determine plateau of latency "jumps" as the stride increases
-
-#define ADVANCED_PLATEAU_DETECTION 0
-
-#if ADVANCED_PLATEAU_DETECTION
 constexpr double kHalvingMin = 1.7;
 constexpr double kHalvingMax = 2.3;
-#endif
+
+// Typical associativities
+constexpr size_t kAssociativityGrid[] = {2, 4, 8, 12, 16, 20, 24, 32};
 
 // Retry geometry analysis this number of times if it does not converge
 constexpr int kMaxGeometryAttempts = 3;
@@ -44,6 +43,8 @@ constexpr size_t kLineProbeStep = sizeof(void*);
 // So we use the next few steps to get reliable latency
 constexpr size_t kLineProbeRefBegin = 1;
 constexpr size_t kLineProbeRefPoints = 4;
+// The step must hold for this many consecutive probe offsets
+constexpr size_t kLineProbeSustainedPoints = 4;
 
 }  // namespace config
 
